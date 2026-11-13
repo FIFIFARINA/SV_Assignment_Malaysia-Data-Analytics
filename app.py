@@ -388,9 +388,16 @@ with tab3:
             lambda a: a.update(text=a.text.split("=")[-1].title())
         )
 
-        fig8.update_xaxes(
-            type="category",
-            title_text="Year"
+fig8.update_xaxes(
+    type="category",
+    title_text=""
+)
+
+fig8.update_xaxes(
+    title_text="Year",
+    row=3,
+    col=1
+)
         )
 
         fig8.update_yaxes(
