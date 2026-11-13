@@ -354,6 +354,7 @@ with tab3:
         )
         st.plotly_chart(fig7, use_container_width=True)
 
+       
         # Chart 8: Education trend by stage (2018-2022)
         school_trend = selected_school_data[
             selected_school_data["year"].between(2018, 2022)
@@ -365,7 +366,6 @@ with tab3:
             )["schools"].sum()
         )
 
-        # Treat years as categories to avoid decimal tick labels
         school_trend["year"] = school_trend["year"].astype(str)
 
         fig8 = px.line(
@@ -388,16 +388,12 @@ with tab3:
             lambda a: a.update(text=a.text.split("=")[-1].title())
         )
 
-fig8.update_xaxes(
-    type="category",
-    title_text=""
-)
+        fig8.update_xaxes(type="category", title_text="")
 
-fig8.update_xaxes(
-    title_text="Year",
-    row=3,
-    col=1
-)
+        fig8.update_xaxes(
+            title_text="Year",
+            row=3,
+            col=1
         )
 
         fig8.update_yaxes(
@@ -408,6 +404,7 @@ fig8.update_xaxes(
         fig8.update_layout(height=750)
 
         st.plotly_chart(fig8, use_container_width=True)
+
 
         # Chart 9: Percentage distribution of schools by state (2022)
         state_total = (
