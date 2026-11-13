@@ -124,6 +124,38 @@ with tab1:
         )
         age_summary = age_summary.sort_values("age")
 
+        
+        # Summary Box: Population Overview
+        total_population = age_summary["population"].sum()
+
+        largest_age_group = age_summary.loc[
+            age_summary["population"].idxmax(), "age"
+        ]
+
+        largest_age_population = age_summary["population"].max()
+
+        total_states = len(selected_states)
+
+        st.subheader("Population Summary")
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric(
+            "Total Population",
+            f"{total_population:,.0f}"
+        )
+
+        col2.metric(
+            "Largest Age Group",
+            str(largest_age_group)
+        )
+
+        col3.metric(
+            "Selected States",
+            total_states
+        )
+
+
         fig1 = px.bar(
             age_summary,
             x="age",
