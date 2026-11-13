@@ -263,10 +263,46 @@ with tab2:
             )
         )
 
-        # Chart 4: Average district-level mean income by state
+        
+        # Summary Box: Household Income Overview
         income_2024 = income_summary[
             income_summary["year"] == selected_year
-        ].sort_values("avg_district_income")
+        ]
+
+        highest_income = income_2024.loc[
+            income_2024["avg_district_income"].idxmax()
+        ]
+
+        lowest_income = income_2024.loc[
+            income_2024["avg_district_income"].idxmin()
+        ]
+
+        st.subheader("Household Income Summary")
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric(
+            "Highest Average Income",
+            f"RM {highest_income['avg_district_income']:,.2f}",
+            highest_income["state"]
+        )
+
+        col2.metric(
+            "Lowest Average Income",
+            f"RM {lowest_income['avg_district_income']:,.2f}",
+            lowest_income["state"]
+        )
+
+        col3.metric(
+            "Selected Year",
+            str(selected_year)
+        )
+
+
+        # Chart 4: Average district-level mean income by state
+        income_2024 = income_2024.sort_values(
+            "avg_district_income"
+        )
 
         fig4 = px.bar(
             income_2024,
