@@ -365,6 +365,9 @@ with tab3:
             )["schools"].sum()
         )
 
+        # Treat years as categories to avoid decimal tick labels
+        school_trend["year"] = school_trend["year"].astype(str)
+
         fig8 = px.line(
             school_trend,
             x="year",
@@ -380,7 +383,23 @@ with tab3:
                 "stage": "Education Stage"
             }
         )
-        fig8.update_yaxes(matches=None)
+
+        fig8.for_each_annotation(
+            lambda a: a.update(text=a.text.split("=")[-1].title())
+        )
+
+        fig8.update_xaxes(
+            type="category",
+            title_text="Year"
+        )
+
+        fig8.update_yaxes(
+            title_text="Number of Schools",
+            matches=None
+        )
+
+        fig8.update_layout(height=750)
+
         st.plotly_chart(fig8, use_container_width=True)
 
         # Chart 9: Percentage distribution of schools by state (2022)
