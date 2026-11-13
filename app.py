@@ -401,6 +401,38 @@ with tab3:
             selected_school_data["year"] == 2022
         ]
 
+        
+        # Summary Box: School Distribution Overview
+        stage_summary = (
+            school_2022.groupby(
+                school_2022["stage"].astype(str).str.lower()
+            )["schools"].sum()
+        )
+
+        total_school_count = school_2022["schools"].sum()
+        primary_schools = stage_summary.get("primary", 0)
+        secondary_schools = stage_summary.get("secondary", 0)
+
+        st.subheader("School Distribution Summary")
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric(
+            "Total Schools",
+            f"{total_school_count:,.0f}"
+        )
+
+        col2.metric(
+            "Primary Schools",
+            f"{primary_schools:,.0f}"
+        )
+
+        col3.metric(
+            "Secondary Schools",
+            f"{secondary_schools:,.0f}"
+        )
+
+
         school_state_stage = (
             school_2022.groupby(
                 ["state", "stage"], as_index=False
